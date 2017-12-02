@@ -1,6 +1,6 @@
 {
     "name": "n1215/http-router",
-    "description": "PSR-7 / PSR-15 HTTP router interface",
+    "description": "PSR-7 / PSR-15 HTTP router interface.",
     "keywords": [
         "psr-7",
         "psr-15",
@@ -19,9 +19,18 @@
         "php": ">=7.1.0",
         "http-interop/http-server-handler": "^1.0.0"
     },
+    "require-dev": {
+        "zendframework/zend-diactoros": "^1.4",
+        "phpunit/phpunit": "^6.5"
+    },
     "autoload": {
         "psr-4": {
             "N1215\\Http\\Router\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "N1215\\Http\\Router\\": "tests"
         }
     }
 }
