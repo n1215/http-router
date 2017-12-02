@@ -1,0 +1,27 @@
+{
+    "name": "n1215/http-router",
+    "description": "PSR-7 / PSR-15 HTTP router interface",
+    "keywords": [
+        "psr-7",
+        "psr-15",
+        "router"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/n1215/http-router",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "n1215",
+            "email": "knakae1215@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "http-interop/http-server-handler": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "N1215\\Http\\Router\\": "src"
+        }
+    }
+}
