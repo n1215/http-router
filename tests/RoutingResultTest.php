@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace N1215\Http\Router;
 
-use Interop\Http\Server\RequestHandlerInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 
@@ -13,7 +11,10 @@ class RoutingResultTest extends TestCase
 {
     public function test_success()
     {
-        $matchedHandler = new MockRequestHandler();
+        $matchedHandler = new MockRequestHandler(function (ServerRequestInterface $request) {
+            return new Response();
+        });
+
         $matchedParams = [
             'resource' => 'posts',
             'id' => '12345',
@@ -37,13 +38,5 @@ class RoutingResultTest extends TestCase
         $this->assertNull($result->getMatchedHandler());
         $this->assertEquals([], $result->getMatchedParams());
         $this->assertSame($error, $result->getError());
-    }
-}
-
-class MockRequestHandler implements RequestHandlerInterface
-{
-    public function handle(ServerRequestInterface $request): ResponseInterface
-    {
-        return new Response();
     }
 }

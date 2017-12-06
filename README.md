@@ -1,4 +1,3 @@
 # http-router
 
-PSR-7 / PSR-15 compatible HTTP router interface.
-
+A PSR-7 compatible router interface and a PSR-15 RequestHandler implementation for routing.
