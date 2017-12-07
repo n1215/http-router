@@ -27,7 +27,7 @@ class YourRouter implements N1215\Http\Router\RouterInterface
 // 2. Implement RoutingErrorResponderInterface.
 class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorResponderInterface
 {
-    public function respond(RoutingErrorInterface $error): ResponseInterface
+    public function respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
     {
         // implement
     }
@@ -47,8 +47,8 @@ $response = $routingHandler->handle($request);
 ```
 
 ## Implementation examples
-* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.2.0/src/Router.php)
-* RoutingErrorHandler -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.1.0/app/Http/Routing/RoutingErrorResponder.php)
+* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.3.0/src/Router.php)
+* RoutingErrorHandler -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.2.0/app/Http/Routing/RoutingErrorResponder.php)
 
 ## Class diagrams
 

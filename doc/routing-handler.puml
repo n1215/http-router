@@ -8,7 +8,7 @@ package N1215\Http\Router {
     note bottom of RouterInterface: Please implement as you like
 
     interface RoutingErrorResponderInterface {
-        + respond(RoutingErrorInterface $error): ResponseInterface
+        + respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
     }
     note bottom of RoutingErrorResponderInterface: Please implement as you like
 
