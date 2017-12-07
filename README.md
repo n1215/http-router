@@ -11,15 +11,11 @@ A PSR-7 / PSR-15 compatible router interface and a PSR-15 server request handler
 This package helps you to create your own http router.
 
 ## Usage
-1. Implement RouterInterface as you like. You can use RoutingError and RoutingResult concrete classes.
-2. Implement RoutingErrorResponderInterface as you like.
-3. Configure to inject them to RoutingHandler.
-4. Use RoutingHandler as an implementation of PSR-15 server request handler.
-
 
 ```php
 <?php
 
+// 1. Implement RouterInterface. You can use RoutingError and RoutingResult concrete classes.
 class YourRouter implements N1215\Http\Router\RouterInterface
 {
     public function match(ServerRequestInterface $request) : RoutingResultInterface
@@ -28,6 +24,7 @@ class YourRouter implements N1215\Http\Router\RouterInterface
     }
 }
 
+// 2. Implement RoutingErrorResponderInterface.
 class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorResponderInterface
 {
     public function respond(RoutingErrorInterface $error): ResponseInterface
@@ -36,18 +33,21 @@ class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorRespond
     }
 }
 
+// 3. Configure to inject them into RoutingHandler.
 $routingHandler = new N1215\Http\Router\RoutingHandler(
     new YourRouter(),
     new YourRoutingErrorResponder()
 );
 
+
+// 4. Use RoutingHandler as an implementation of PSR-15 server request handler.
 /** @var \Psr\Http\Message\ServerRequestInterface $request */
 /** @var \Psr\Http\Message\ResponseInterface $response */
 $response = $routingHandler->handle($request);
 
 ```
 
-## Class diagram
+## Class diagrams
 
 ### RouterInterface
 ![router](doc/router.png)
