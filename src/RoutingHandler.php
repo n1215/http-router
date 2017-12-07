@@ -28,7 +28,7 @@ final class RoutingHandler implements RoutingHandlerInterface
         $result = $this->router->match($request);
 
         if (!$result->isSuccess()) {
-            return $this->errorResponder->respond($result->getError());
+            return $this->errorResponder->respond($request, $result->getError());
         }
 
         foreach ($result->getMatchedParams() as $name => $value) {

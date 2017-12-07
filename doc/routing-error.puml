@@ -22,20 +22,22 @@ package N1215\Http\Router {
     }
 
     interface RoutingErrorResponderInterface {
-        + respond(RoutingErrorInterface $error): ResponseInterface
+        + respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
     }
     note bottom of RoutingErrorResponderInterface: Converts routing error to PSR-7 response
 
     RoutingResultInterface o- RoutingErrorInterface
 
     RoutingErrorInterface --> RoutingErrorResponderInterface: input
-    RoutingErrorResponderInterface -> Psr\Http\Message.ResponseInterface: output
+    Psr\Http\Message.ServerRequestInterface --> RoutingErrorResponderInterface: input
+    RoutingErrorResponderInterface --> Psr\Http\Message.ResponseInterface: output
 
     RoutingError --|> RoutingErrorInterface: implements
 
 }
 
 namespace Psr\Http\Message {
+    interface ServerRequestInterface
     interface ResponseInterface
 }
 
