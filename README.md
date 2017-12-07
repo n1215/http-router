@@ -6,20 +6,9 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/n1215/http-router/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/n1215/http-router/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/n1215/http-router/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/n1215/http-router/?branch=master)
 
-A PSR-7 / PSR-15 compatible router interface and a PSR-15 RequestHandler implementation for routing.
+A PSR-7 / PSR-15 compatible router interface and a PSR-15 server request handler implementation for routing.
+
 This package helps you to create your own http router.
-
-
-## Class diagram
-
-### RouterInterface
-![router](doc/router.png)
-
-### RoutingErrorInterface and RoutingErrorResponderInterface
-![routing-error](doc/routing-error.png)
-
-### RoutingHandler
-![routing-handler](doc/routing-handler.png)
 
 ## Usage
 1. Implement RouterInterface as you like. You can use RoutingError and RoutingResult concrete classes.
@@ -54,6 +43,17 @@ $routingHandler = new N1215\Http\Router\RoutingHandler(
 
 /** @var \Psr\Http\Message\ServerRequestInterface $request */
 /** @var \Psr\Http\Message\ResponseInterface $response */
-$response = $routingHandler->handler($request);
+$response = $routingHandler->handle($request);
 
 ```
+
+## Class diagram
+
+### RouterInterface
+![router](doc/router.png)
+
+### RoutingErrorInterface and RoutingErrorResponderInterface
+![routing-error](doc/routing-error.png)
+
+### RoutingHandler
+![routing-handler](doc/routing-handler.png)
