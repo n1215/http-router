@@ -39,13 +39,16 @@ $routingHandler = new N1215\Http\Router\RoutingHandler(
     new YourRoutingErrorResponder()
 );
 
-
 // 4. Use RoutingHandler as an implementation of PSR-15 server request handler.
 /** @var \Psr\Http\Message\ServerRequestInterface $request */
 /** @var \Psr\Http\Message\ResponseInterface $response */
 $response = $routingHandler->handle($request);
 
 ```
+
+## Implementation examples
+* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.2.0/src/Router.php)
+* RoutingErrorHandler -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.1.0/app/Http/Routing/RoutingErrorResponder.php)
 
 ## Class diagrams
 
