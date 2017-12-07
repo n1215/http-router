@@ -1,0 +1,40 @@
+@startuml
+
+package N1215\Http\Router {
+
+    interface RouterInterface {
+        + match(ServerRequestInterface $request): RoutingResultInterface
+    }
+    note bottom of RouterInterface: Please implement as you like
+
+    interface RoutingErrorResponderInterface {
+        + respond(RoutingErrorInterface $error): ResponseInterface
+    }
+    note bottom of RoutingErrorResponderInterface: Please implement as you like
+
+    interface RoutingHandlerInterface {
+        + handle(ServerRequestInterface $request): ResponseInterface
+    }
+    note right of RoutingHandlerInterface: Marker interface of RequestHandler for routing
+
+    class RoutingHandler {
+        - $router: RouterInterface
+        - $routingErrorResponder: RoutingErrorResponderInterface
+        + handle(ServerRequestInterface $request): ResponseInterface
+    }
+
+    Psr\Http\Server.RequestHandlerInterface <|-- RoutingHandlerInterface: extends
+    RoutingHandlerInterface <|-- RoutingHandler: implements
+
+    RoutingHandler o-- RouterInterface
+    RoutingHandler o-- RoutingErrorResponderInterface
+
+}
+
+namespace Psr\Http\Server {
+    interface RequestHandlerInterface {
+        + handle(ServerRequestInterface $request): ResponseInterface
+    }
+}
+
+@enduml
