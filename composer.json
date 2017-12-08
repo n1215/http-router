@@ -1,6 +1,6 @@
 {
     "name": "n1215/http-router",
-    "description": "A PSR-7 compatible router interface and a PSR-15 RequestHandler implementation for routing.",
+    "description": "A PSR-7 / PSR-15 compatible router interface and a PSR-15 server request handler implementation for routing.",
     "keywords": [
         "psr-7",
         "psr-15",
@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "http-interop/http-server-handler": "^1.0.0"
+        "http-interop/http-server-handler": "^1.0"
     },
     "require-dev": {
         "zendframework/zend-diactoros": "^1.4",
