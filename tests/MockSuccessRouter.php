@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace N1215\Http\Router;
 
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class MockSuccessRouter implements RouterInterface

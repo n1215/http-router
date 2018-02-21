@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "http-interop/http-server-handler": "^1.0"
+        "psr/http-server-handler": "^1.0"
     },
     "require-dev": {
         "zendframework/zend-diactoros": "^1.4",
