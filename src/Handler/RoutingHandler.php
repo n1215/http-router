@@ -1,17 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace N1215\Http\Router;
+namespace N1215\Http\Router\Handler;
 
+use N1215\Http\Router\RouterInterface;
+use N1215\Http\Router\RoutingErrorResponderInterface;
+use N1215\Http\Router\RoutingHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class RoutingHandler implements RoutingHandlerInterface
 {
-    /** @var RouterInterface  */
+    /** @var RouterInterface */
     private $router;
 
-    /** @var RoutingErrorResponderInterface  */
+    /** @var RoutingErrorResponderInterface */
     private $errorResponder;
 
     public function __construct(RouterInterface $router, RoutingErrorResponderInterface $errorResponder)

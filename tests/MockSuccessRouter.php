@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace N1215\Http\Router;
 
+use N1215\Http\Router\Result\RoutingSuccess;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -22,6 +23,6 @@ class MockSuccessRouter implements RouterInterface
 
     public function match(ServerRequestInterface $request): RoutingResultInterface
     {
-        return RoutingResult::success($this->matchedHandler, $this->matchedParams);
+        return new RoutingSuccess($this->matchedHandler, $this->matchedParams);
     }
 }

@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace N1215\Http\Router;
+namespace N1215\Http\Router\Handler;
 
+use N1215\Http\Router\MockFailureRouter;
+use N1215\Http\Router\MockRequestHandler;
+use N1215\Http\Router\MockRoutingErrorResponder;
+use N1215\Http\Router\MockSuccessRouter;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,7 +16,7 @@ use Zend\Diactoros\ServerRequest;
 
 class RoutingHandlerTest extends TestCase
 {
-    public function test_handle_when_route_matched()
+    public function test_handle_when_route_matched(): void
     {
         $response = new Response();
         $matchedParams = ['dummy' => 'param'];
@@ -31,7 +35,7 @@ class RoutingHandlerTest extends TestCase
         $this->assertSame($response, $result);
     }
 
-    public function test_handle_when_route_not_matched()
+    public function test_handle_when_route_not_matched(): void
     {
         $message = 'route not found';
         $statusCode = 404;

@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace N1215\Http\Router;
+namespace N1215\Http\Router\Result;
+
+use N1215\Http\Router\RoutingErrorInterface;
 
 final class RoutingError implements RoutingErrorInterface
 {

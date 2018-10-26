@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace N1215\Http\Router;
 
+use N1215\Http\Router\Result\RoutingError;
+use N1215\Http\Router\Result\RoutingFailure;
 use Psr\Http\Message\ServerRequestInterface;
 
 class MockFailureRouter implements RouterInterface
@@ -21,6 +23,6 @@ class MockFailureRouter implements RouterInterface
 
     public function match(ServerRequestInterface $request): RoutingResultInterface
     {
-        return RoutingResult::failure(new RoutingError($this->statusCode, $this->message));
+        return new RoutingFailure(new RoutingError($this->statusCode, $this->message));
     }
 }
