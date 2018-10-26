@@ -15,7 +15,7 @@ This package helps you to create your own http router.
 ```php
 <?php
 
-// 1. Implement RouterInterface. You can use RoutingError and RoutingResult concrete classes.
+// 1. Implement RouterInterface. You can use RoutingResultFactory concrete classes to create RoutingResult.
 class YourRouter implements N1215\Http\Router\RouterInterface
 {
     public function match(ServerRequestInterface $request) : RoutingResultInterface
@@ -34,7 +34,7 @@ class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorRespond
 }
 
 // 3. Configure to inject them into RoutingHandler.
-$routingHandler = new N1215\Http\Router\RoutingHandler(
+$routingHandler = new N1215\Http\Router\Handler\RoutingHandler(
     new YourRouter(),
     new YourRoutingErrorResponder()
 );
@@ -47,8 +47,8 @@ $response = $routingHandler->handle($request);
 ```
 
 ## Implementation examples
-* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.3.0/src/Router.php)
-* RoutingErrorHandler -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.2.0/app/Http/Routing/RoutingErrorResponder.php)
+* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.6.0/src/Router.php)
+* RoutingErrorResponder -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.6.0/app/Http/Routing/RoutingErrorResponder.php)
 
 ## Class diagrams
 
