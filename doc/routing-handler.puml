@@ -8,7 +8,8 @@ package N1215\Http\Router {
     note bottom of RouterInterface: Please implement as you like
 
     interface RoutingErrorResponderInterface {
-        + respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
+        + supports(RoutingException $exception): bool
+        + respond(RoutingException $exception, ServerRequestInterface $request): ResponseInterface
     }
     note bottom of RoutingErrorResponderInterface: Please implement as you like
 
@@ -19,7 +20,8 @@ package N1215\Http\Router {
 
     class RoutingHandler {
         - $router: RouterInterface
-        - $routingErrorResponder: RoutingErrorResponderInterface
+        - $notFoundResponder: RoutingErrorResponderInterface
+        - $methodNotAllowedResponder: RoutingErrorResponderInterface
         + handle(ServerRequestInterface $request): ResponseInterface
     }
 
@@ -28,7 +30,6 @@ package N1215\Http\Router {
 
     RoutingHandler o-- RouterInterface
     RoutingHandler o-- RoutingErrorResponderInterface
-
 }
 
 namespace Psr\Http\Server {

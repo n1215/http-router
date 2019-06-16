@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace N1215\Http\Router\Handler;
 
+use N1215\Http\Router\Exception\MethodNotAllowedException;
+use N1215\Http\Router\Exception\RouteNotFoundException;
 use N1215\Http\Router\MockFailureRouter;
 use N1215\Http\Router\MockRequestHandler;
 use N1215\Http\Router\MockRoutingErrorResponder;
 use N1215\Http\Router\MockSuccessRouter;
+use N1215\Http\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,15 +22,14 @@ class RoutingHandlerTest extends TestCase
     public function test_handle_when_route_matched(): void
     {
         $response = new Response();
-        $matchedParams = ['dummy' => 'param'];
-        $matchedHandler = new MockRequestHandler(function (ServerRequestInterface $request) use ($response, $matchedParams) {
+        $params = ['dummy' => 'param'];
+        $handler = new MockRequestHandler(function (ServerRequestInterface $request) use ($response, $params) {
             $this->assertEquals('param', $request->getAttribute('dummy'));
             return $response;
         });
 
-        $router = new MockSuccessRouter($matchedHandler, $matchedParams);
-        $routingErrorResponder = new MockRoutingErrorResponder();
-        $routingHandler = new RoutingHandler($router, $routingErrorResponder);
+        $router = new MockSuccessRouter($handler, $params);
+        $routingHandler = $this->makeRoutingHandler($router);
 
         $result = $routingHandler->handle(new ServerRequest());
 
@@ -38,17 +40,35 @@ class RoutingHandlerTest extends TestCase
     public function test_handle_when_route_not_matched(): void
     {
         $message = 'route not found';
-        $statusCode = 404;
 
-        $router = new MockFailureRouter($statusCode, $message);
-
-        $routingErrorResponder = new MockRoutingErrorResponder();
-        $routingHandler = new RoutingHandler($router, $routingErrorResponder);
+        $router = new MockFailureRouter(new RouteNotFoundException($message));
+        $routingHandler = $this->makeRoutingHandler($router);
 
         $result = $routingHandler->handle(new ServerRequest());
 
         $this->assertInstanceOf(TextResponse::class, $result);
-        $this->assertEquals($statusCode, $result->getStatusCode());
+        $this->assertEquals(404, $result->getStatusCode());
         $this->assertEquals($message, $result->getBody()->__toString());
+    }
+
+    public function test_handle_when_method_not_allowed(): void
+    {
+        $message = 'method not allowed';
+
+        $router = new MockFailureRouter(new MethodNotAllowedException($message));
+        $routingHandler = $this->makeRoutingHandler($router);
+
+        $result = $routingHandler->handle(new ServerRequest());
+
+        $this->assertInstanceOf(TextResponse::class, $result);
+        $this->assertEquals(405, $result->getStatusCode());
+        $this->assertEquals($message, $result->getBody()->__toString());
+    }
+
+    private function makeRoutingHandler(RouterInterface $router): RoutingHandler
+    {
+        $notFoundResponder = new MockRoutingErrorResponder(RouteNotFoundException::class, 404);
+        $methodNotFoundResponder = new MockRoutingErrorResponder(MethodNotAllowedException::class, 405);
+        return new RoutingHandler($router, $notFoundResponder, $methodNotFoundResponder);
     }
 }

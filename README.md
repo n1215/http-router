@@ -25,9 +25,14 @@ class YourRouter implements N1215\Http\Router\RouterInterface
 }
 
 // 2. Implement RoutingErrorResponderInterface.
-class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorResponderInterface
+class YourRoutingErrorResponder implements N1215\Http\Router\Handler\RoutingErrorResponderInterface
 {
-    public function respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
+    public function supports(RoutingException $exception): bool
+    {
+        // implement
+    }
+
+    public function respond(RoutingException $exception, ServerRequestInterface $request): ResponseInterface
     {
         // implement
     }
@@ -36,7 +41,8 @@ class YourRoutingErrorResponder implements N1215\Http\Router\RoutingErrorRespond
 // 3. Configure to inject them into RoutingHandler.
 $routingHandler = new N1215\Http\Router\Handler\RoutingHandler(
     new YourRouter(),
-    new YourRoutingErrorResponder()
+    new YourNotFoundErrorResponder(),
+    new YourMethodNotAllowedErrorResponder()
 );
 
 // 4. Use RoutingHandler as an implementation of PSR-15 server request handler.
@@ -55,7 +61,7 @@ $response = $routingHandler->handle($request);
 ### RouterInterface
 ![router](doc/router.png)
 
-### RoutingErrorInterface and RoutingErrorResponderInterface
+### RoutingException and RoutingErrorResponderInterface
 ![routing-error](doc/routing-error.png)
 
 ### RoutingHandler

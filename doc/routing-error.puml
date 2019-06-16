@@ -2,38 +2,27 @@
 
 package N1215\Http\Router {
 
-    interface RoutingErrorInterface {
-        + getStatusCode(): int
-        + getMessage(): string
+    abstract class RoutingException {
     }
 
-    class RoutingError {
-        - $statusCode: int
-        - $message: string
-        + getStatusCode(): int
-        + getMessage(): string
+    class RouteNotFoundException {
     }
 
-    interface RoutingResultInterface {
-        + isSuccess(): bool;
-        + getMatchedHandler(): ?RequestHandlerInterface;
-        + getMatchedParams(): array;
-        + getError(): ?RoutingErrorInterface;
+    class MethodNotAllowedException {
     }
 
     interface RoutingErrorResponderInterface {
-        + respond(ServerRequestInterface $request, RoutingErrorInterface $error): ResponseInterface
+        + supports(RoutingException $exception): bool
+        + respond(RoutingException $exception, ServerRequestInterface $request): ResponseInterface
     }
-    note bottom of RoutingErrorResponderInterface: Converts routing error to PSR-7 response
+    note bottom of RoutingErrorResponderInterface: Converts routing exception to PSR-7 response
 
-    RoutingResultInterface o- RoutingErrorInterface
-
-    RoutingErrorInterface --> RoutingErrorResponderInterface: input
+    RoutingException --> RoutingErrorResponderInterface: input
     Psr\Http\Message.ServerRequestInterface --> RoutingErrorResponderInterface: input
     RoutingErrorResponderInterface --> Psr\Http\Message.ResponseInterface: output
 
-    RoutingError --|> RoutingErrorInterface: implements
-
+    RouteNotFoundException --|> RoutingException: extends
+    MethodNotAllowedException --|> RoutingException: extends
 }
 
 namespace Psr\Http\Message {

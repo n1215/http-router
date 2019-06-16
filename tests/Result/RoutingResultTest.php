@@ -8,11 +8,10 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 
-class RoutingResultFactoryTest extends TestCase
+class RoutingResultTest extends TestCase
 {
-    public function test_make(): void
+    public function test_getters(): void
     {
-        $factory = new RoutingResultFactory();
         $handler = new MockRequestHandler(function (ServerRequestInterface $request) {
             return new Response();
         });
@@ -21,7 +20,7 @@ class RoutingResultFactoryTest extends TestCase
             'id' => '12345',
         ];
 
-        $result = $factory->make($handler, $params);
+        $result = new RoutingResult($handler, $params);
 
         $this->assertSame($handler, $result->getHandler());
         $this->assertEquals($params, $result->getParams());

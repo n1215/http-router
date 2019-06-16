@@ -7,11 +7,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 interface RoutingResultInterface
 {
-    public function isSuccess(): bool;
+    public function getHandler(): RequestHandlerInterface;
 
-    public function getMatchedHandler(): ?RequestHandlerInterface;
-
-    public function getMatchedParams(): array;
-
-    public function getError(): ?RoutingErrorInterface;
+    public function getParams(): array;
 }

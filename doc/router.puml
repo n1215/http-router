@@ -2,30 +2,24 @@
 
 package N1215\Http\Router {
 
-    interface RoutingErrorInterface {
-        + getStatusCode(): int
-        + getMessage(): string
+    abstract class RoutingException {
     }
-    note bottom of RoutingErrorInterface: Error like "route not found",\n "method not allowed", and so on.
+    note left of RoutingException: exception represents \nrouting failures.
 
     interface RoutingResultInterface {
-        + isSuccess(): bool;
-        + getMatchedHandler(): ?RequestHandlerInterface;
-        + getMatchedParams(): array;
-        + getError(): ?RoutingErrorInterface;
+        + getHandler(): RequestHandlerInterface;
+        + getParams(): array;
     }
-    note bottom of RoutingResultInterface: Holds whether routing is success or failure,\n matched params and a RequestHandler
+    note bottom of RoutingResultInterface: information of successfully matched route
 
     interface RouterInterface {
         + match(ServerRequestInterface $request): RoutingResultInterface
     }
-    note bottom of RouterInterface: receives PSR-7 server request \n and returns routing result.
+    note left of RouterInterface: receives PSR-7 server request \n and returns routing result.
 
     Psr\Http\Message.ServerRequestInterface --> RouterInterface: input
     RouterInterface -> RoutingResultInterface: output
-
-    RoutingResultInterface o- RoutingErrorInterface: 1   0..1
-
+    RouterInterface --> RoutingException: throws
 
     Psr\Http\Server.RequestHandlerInterface --o RoutingResultInterface
 }
