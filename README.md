@@ -53,7 +53,7 @@ $response = $routingHandler->handle($request);
 ```
 
 ## Implementation examples
-* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.6.0/src/Router.php)
+* Router -> [n1215/hakudo](https://github.com/n1215/hakudo/blob/v0.7.0/src/Router.php)
 * RoutingErrorResponder -> [n1215/tsukuyomi-demo](https://github.com/n1215/tsukuyomi-demo/blob/v0.6.0/app/Http/Routing/RoutingErrorResponder.php)
 
 ## Class diagrams
