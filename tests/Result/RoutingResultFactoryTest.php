@@ -6,7 +6,7 @@ namespace N1215\Http\Router\Result;
 use N1215\Http\Router\MockRequestHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response;
+use Laminas\Diactoros\Response;
 
 class RoutingResultFactoryTest extends TestCase
 {

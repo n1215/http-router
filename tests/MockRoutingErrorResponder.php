@@ -7,7 +7,7 @@ use N1215\Http\Router\Exception\RoutingException;
 use N1215\Http\Router\Handler\RoutingErrorResponderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\Response\TextResponse;
 
 class MockRoutingErrorResponder implements RoutingErrorResponderInterface
 {
